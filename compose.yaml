@@ -1,12 +1,16 @@
 services:
-  # nginx:
-  #   build:
-  #     context: .
-  #     dockerfile: nginx.Dockerfile
-  #   ports:
-  #     - 80:80
-  #   depends_on:
-  #     - postgres
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - postgres
+      - node
+    environment:
+      NODE_PORT: ${NODE_PORT}
+
   postgres:
     image: postgres
     environment:
@@ -16,12 +20,11 @@ services:
     restart: always
     volumes:
       - ./db/:/var/lib/postgresql/data/
-  backend:
+
+  node:
     build:
       context: .
       dockerfile: node.Dockerfile
-    ports:
-      - 80:${NODE_PORT}
     volumes:
       - ./backend/:/app/
     depends_on:
