@@ -1,7 +1,10 @@
 #!/bin/sh
+chmod -R 777 /app
 
 cd /app
 npm init -y
-npm install --save sequelize pg pg-hstore
+npm install --save sequelize pg pg-hstore 
+npm install -g nodemon
 
-node server.mjs
+
+nodemon server.mjs
