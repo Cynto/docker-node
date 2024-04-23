@@ -3,14 +3,14 @@ services:
     build:
       context: .
       dockerfile: nginx.Dockerfile
+      args:
+        PORT: ${NGINX_INTERNAL_PORT}
+        NODE_PORT: ${NODE_PORT}
     ports:
       - ${NGINX_HOST_PORT}:${NGINX_INTERNAL_PORT}
     depends_on:
       - postgres
       - node
-    environment:
-      NODE_PORT: ${NODE_PORT}
-      PORT: ${NGINX_INTERNAL_PORT}
 
   postgres:
     image: postgres

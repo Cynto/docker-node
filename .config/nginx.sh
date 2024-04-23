@@ -1,7 +1,8 @@
 #!/bin/sh
 
-# Substitute environment variables in the Nginx configuration template
-envsubst < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf
+for file in /etc/nginx/http.d/*.template; do
+    mv "$file" "${file%.template}"
+done
 
 # Start Nginx
 nginx -g "daemon off;"
